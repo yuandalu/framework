@@ -2,6 +2,8 @@
 
 namespace Elephant\Base;
 
+use Elephant\Container\Factory;
+
 class Exception
 {
     protected $_errorController = "error";
@@ -13,16 +15,16 @@ class Exception
 
     public function setException($e)
     {
-        $error              = new ArrayObject(array(),ArrayObject::ARRAY_AS_PROPS);
+        $error              = new \ArrayObject(array(),\ArrayObject::ARRAY_AS_PROPS);
         $exceptionType      = get_class($e);
         $error->exception   = $e;
         $error->type        = $exceptionType;
-        QFrameContainer::find('QFrameHttp')->setParam('error_handle',$error);
-        QFrameContainer::find('QFrameWeb')->setDispatched(false);
-        QFrameContainer::find('QFrameWeb')->setControllerName($this->getErrorControllerName())
+        Factory::find('Elephant\Base\Request')->setParam('error_handle',$error);
+        Factory::find('Elephant\Foundation\Application')->setDispatched(false);
+        Factory::find('Elephant\Foundation\Application')->setControllerName($this->getErrorControllerName())
                                           ->setActionName($this->getErrorActionName())
                                           ->dispatch();
-        QFrameContainer::find('QFrameView')->renderView();
+        Factory::find('Elephant\Foundation\View')->renderView();
     }
 
     public function setErrorController($name)
