@@ -19,7 +19,7 @@ class Exception
         $exceptionType      = get_class($e);
         $error->exception   = $e;
         $error->type        = $exceptionType;
-        Factory::find('Elephant\Base\Request')->setParam('error_handle',$error);
+        Factory::find('Elephant\Base\Request')->setParam('error_handle', $error);
         Factory::find('Elephant\Foundation\Application')->setDispatched(false);
         Factory::find('Elephant\Foundation\Application')->setControllerName($this->getErrorControllerName())
                                           ->setActionName($this->getErrorActionName())
