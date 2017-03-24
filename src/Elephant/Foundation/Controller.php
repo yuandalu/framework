@@ -14,7 +14,7 @@ class Controller
 
     public function dispatch($action)
     {
-        // #warning 还没考虑其他输出是否要过滤输出内容 Json输出应该作为一个Json类来处理Hrader Etag
+        // #warning 还没考虑其他输出是否要过滤输出内容 Json输出应该作为一个Json类来处理Header Etag
         $this->preDispatch();
         $data = $this->$action();
         if ($data instanceof View) {
